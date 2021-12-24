@@ -1,0 +1,92 @@
+mvn io.quarkus:quarkus-maven-plugin:1.13.7.Final:create -DprojectGroupId=io.quarkus.workshop.super-heroes -DprojectArtifactId=rest-hero -DclassName="io.quarkus.workshop.superheroes.hero.HeroResource" -Dpath="api/heroes"
+
+./mvnw quarkus:add-extension -Dextensions="jdbc-postgresql,hibernate-orm-panache,hibernate-validator,resteasy-jsonb"
+
+./mvnw quarkus:add-extension -Dextensions="smallrye-openapi"
+
+curl http://localhost:8083/api/heroes
+
+curl -X POST -d  '{"level":5, "name":"Chewbacca", "powers":"Agility, Longevity"}'  -H "Content-Type: application/json" http://localhost:8083/api/heroes -v
+
+curl http://localhost:8083/api/heroes/952 | jq
+
+curl http://localhost:8083/openapi
+
+curl -X POST -d  '{"level":2, "name":"Darth Vader", "powers":"Darkness, Longevity"}'  -H "Content-Type: application/json" http://localhost:8084/api/villains -v
+
+curl http://localhost:8084/api/villains/582 | jq
+
+mvn io.quarkus:quarkus-maven-plugin:1.13.7.Final:create -DprojectGroupId=io.quarkus.workshop.super-heroes -DprojectArtifactId=rest-fight -DclassName="io.quarkus.workshop.superheroes.fight.FightResource" -Dpath="api/fights"
+
+./mvnw quarkus:add-extension -Dextensions="jdbc-postgresql,hibernate-orm-panache,hibernate-validator,quarkus-resteasy-jsonb,smallrye-openapi,kafka"
+
+
+mvn io.quarkus:quarkus-maven-plugin:2.0.0.Alpha2:create
+
+
+https://lordofthejars.github.io/quarkus-cheat-sheet/
+
+
+https://github.com/quarkusio/quarkus
+
+
+
+$ swagger-codegen generate -i http://localhost:8082/openapi -l typescript-angular -o src/app/shared
+
+https://github.com/swagger-api/swagger-codegen#prerequisites
+
+
+mvn io.quarkus:quarkus-maven-plugin:1.9.2.Final:create \
+    -DprojectGroupId=io.quarkus.workshop.super-heroes \
+    -DprojectArtifactId=event-statistics \
+    -DclassName="io.quarkus.workshop.superheroes.statistics.StatisticResource" \
+    -Dpath="api/stats" \
+    -Dextensions="kafka, vertx, resteasy-jsonb, undertow-websockets"
+cd event-statistics
+
+
+
+cd rest-hero
+mvn clean package -Pnative -Dnative-image.docker-build=true -DskipTests
+cd ..
+cd rest-villain
+mvn clean package -Pnative -Dnative-image.docker-build=true -DskipTests
+cd ..
+cd rest-fight
+cp -R ../ui-super-heroes/dist/* src/main/resources/META-INF/resources
+mvn clean package -Pnative -Dnative-image.docker-build=true -DskipTests
+cd ..
+cd event-statistics
+mvn clean package -Pnative -Dnative-image.docker-build=true -DskipTests
+cd .
+
+Now that we have the native executables, we can build containers. When you create projects, Quarkus generates two Dockerfiles:
+
+Dockerfile.jvm - A Dockerfile for running the application in JVM mode
+
+Dockerfile.native - A Dockerfile for running the application in native mode
+
+We are interested in this second file. Open one of these Dockerfile.native files:
+
+FROM registry.access.redhat.com/ubi8/ubi-minimal
+WORKDIR /work/
+COPY target/*-runner /work/application
+RUN chmod 775 /work
+EXPOSE 8080
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+
+
+
+export ORG=xxxx
+cd rest-hero
+docker build -f src/main/docker/Dockerfile.native -t $ORG/quarkus-workshop-hero .
+cd ..
+cd rest-villain
+docker build -f src/main/docker/Dockerfile.native -t $ORG/quarkus-workshop-villain .
+cd ..
+cd rest-fight
+docker build -f src/main/docker/Dockerfile.native -t $ORG/quarkus-workshop-fight .
+cd ..
+cd event-statistics
+docker build -f src/main/docker/Dockerfile.native -t $ORG/quarkus-workshop-stats .
+cd ..

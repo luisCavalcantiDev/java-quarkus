@@ -1,0 +1,7 @@
+/home/luisdev/projects/quarkus-trainings/quarkus-super-heroes-workshop/super-heroes/load-super-heroes/src/main/java/io/quarkus/workshop/superheroes/load/ScenarioInvoker.java
+/home/luisdev/projects/quarkus-trainings/quarkus-super-heroes-workshop/super-heroes/load-super-heroes/src/main/java/io/quarkus/workshop/superheroes/load/SuperHeroesLoad.java
+/home/luisdev/projects/quarkus-trainings/quarkus-super-heroes-workshop/super-heroes/load-super-heroes/src/main/java/io/quarkus/workshop/superheroes/load/Endpoint.java
+/home/luisdev/projects/quarkus-trainings/quarkus-super-heroes-workshop/super-heroes/load-super-heroes/src/main/java/io/quarkus/workshop/superheroes/load/FightScenario.java
+/home/luisdev/projects/quarkus-trainings/quarkus-super-heroes-workshop/super-heroes/load-super-heroes/src/main/java/io/quarkus/workshop/superheroes/load/VillainScenario.java
+/home/luisdev/projects/quarkus-trainings/quarkus-super-heroes-workshop/super-heroes/load-super-heroes/src/main/java/io/quarkus/workshop/superheroes/load/HeroScenario.java
+/home/luisdev/projects/quarkus-trainings/quarkus-super-heroes-workshop/super-heroes/load-super-heroes/src/main/java/io/quarkus/workshop/superheroes/load/WeightedRandomResult.java
