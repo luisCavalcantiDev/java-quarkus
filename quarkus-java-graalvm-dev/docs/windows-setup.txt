@@ -1,0 +1,14 @@
+GraalVM: https://www.graalvm.org/
+C:\opt\graalvm-ce-java11-20.3.0
+setx /M GRAALVM_HOME "C:\opt\graalvm-ce-java11-20.3.0"
+setx /M JAVA_HOME "C:\opt\graalvm-ce-java11-20.3.0"
+setx /M PATH "%JAVA_HOME%\bin;%PATH%"
+
+Maven: http://maven.apache.org/download.cgi
+C:\opt\apache-maven-3.6.3
+setx /M MAVEN_HOME "C:\opt\apache-maven-3.6.3"
+setx /M PATH "%MAVEN_HOME%\bin;%PATH%"
+
+Git: https://git-scm.com/download/win
+
+https://github.com/quarkus-course/lecture-getting-started.git
